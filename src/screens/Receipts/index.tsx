@@ -25,6 +25,7 @@ export function Receipts() {
       .delete()
       .then(() => {
         Alert.alert("Imagem excluida");
+        setPhotoSelected({});
         fetchImages();
       })
       .catch((error) => console.log(error));
