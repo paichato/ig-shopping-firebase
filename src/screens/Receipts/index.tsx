@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { FlatList } from "react-native";
+import { Alert, FlatList } from "react-native";
 
 import { Container, PhotoInfo } from "./styles";
 import { Header } from "../../components/Header";
@@ -19,9 +19,18 @@ export function Receipts() {
     setPhotoSelected({ uri: urlImage, path, info });
   };
 
-  const handleDeleteImage = () => {};
+  const handleDeleteImage = async (path: string) => {
+    storage()
+      .ref(path)
+      .delete()
+      .then(() => {
+        Alert.alert("Imagem excluida");
+        fetchImages();
+      })
+      .catch((error) => console.log(error));
+  };
 
-  useEffect(() => {
+  const fetchImages = async () => {
     storage()
       .ref("/images")
       .list()
@@ -32,6 +41,10 @@ export function Receipts() {
         });
         setPhotos(files);
       });
+  };
+
+  useEffect(() => {
+    fetchImages();
   }, []);
 
   return (
@@ -51,7 +64,7 @@ export function Receipts() {
           <File
             data={item}
             onShow={() => handleShowImage(item.path)}
-            onDelete={() => {}}
+            onDelete={() => handleDeleteImage(item.path)}
             isSelected={photoSelected.path === item.path}
           />
         )}
