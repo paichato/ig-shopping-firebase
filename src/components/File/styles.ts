@@ -1,9 +1,10 @@
-import styled from 'styled-components/native';
+import styled from "styled-components/native";
 
 export const Container = styled.View`
   width: 100%;
   height: 100px;
-  background-color: ${({ theme }) => theme.COLORS.GRAY50};
+  background-color: ${({ theme, isSelected }) =>
+    isSelected ? theme.COLORS.PURPLE : theme.COLORS.GRAY50};
   padding-left: 12px;
   padding-right: 12px;
   padding-top: 5px;

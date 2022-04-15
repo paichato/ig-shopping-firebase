@@ -11,6 +11,14 @@ import storage from "@react-native-firebase/storage";
 
 export function Receipts() {
   const [photos, setPhotos] = useState<FileProps[]>([]);
+  const [photoSelected, setPhotoSelected] = useState({});
+
+  const handleShowImage = async (path: string) => {
+    const urlImage = await storage().ref(path).getDownloadURL();
+    setPhotoSelected({ uri: urlImage, path });
+  };
+
+  const handleDeleteImage = () => {};
 
   useEffect(() => {
     storage()
@@ -29,7 +37,7 @@ export function Receipts() {
     <Container>
       <Header title="Comprovantes" />
 
-      <Photo uri="" />
+      <Photo uri={photoSelected.uri} />
 
       <PhotoInfo>Informações da foto</PhotoInfo>
 
@@ -37,7 +45,12 @@ export function Receipts() {
         data={photos}
         keyExtractor={(item) => item.name}
         renderItem={({ item }) => (
-          <File data={item} onShow={() => {}} onDelete={() => {}} />
+          <File
+            data={item}
+            onShow={() => handleShowImage(item.path)}
+            onDelete={() => {}}
+            isSelected={photoSelected.path === item.path}
+          />
         )}
         contentContainerStyle={{ paddingBottom: 100 }}
         showsVerticalScrollIndicator={false}
