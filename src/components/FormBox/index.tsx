@@ -16,7 +16,8 @@ export function FormBox() {
     //   .get()
     firestore()
       .collection("products")
-      .add({
+      .doc(description)
+      .set({
         description: description,
         quantity: quantity,
         done: false,
