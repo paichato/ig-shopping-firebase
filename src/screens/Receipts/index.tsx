@@ -15,7 +15,8 @@ export function Receipts() {
 
   const handleShowImage = async (path: string) => {
     const urlImage = await storage().ref(path).getDownloadURL();
-    setPhotoSelected({ uri: urlImage, path });
+    const info = await storage().ref(path).getMetadata();
+    setPhotoSelected({ uri: urlImage, path, info });
   };
 
   const handleDeleteImage = () => {};
@@ -39,7 +40,9 @@ export function Receipts() {
 
       <Photo uri={photoSelected.uri} />
 
-      <PhotoInfo>Informações da foto</PhotoInfo>
+      <PhotoInfo>
+        Upload realizado em {photoSelected?.info?.timeCreated}
+      </PhotoInfo>
 
       <FlatList
         data={photos}
