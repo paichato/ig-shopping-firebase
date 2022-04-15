@@ -46,7 +46,10 @@ export function Upload() {
       );
     });
     uploadTask
-      .then(() => Alert.alert("Upload concluido"))
+      .then(async () => {
+        const imageUrl = await reference.getDownloadURL();
+        Alert.alert("Upload concluido");
+      })
       .catch((error) => console.log(error));
   };
 
