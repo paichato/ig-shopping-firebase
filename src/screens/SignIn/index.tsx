@@ -27,7 +27,17 @@ export function SignIn() {
   };
 
   const handleSignInWithEmail = async () => {
-    auth().signInWithEmailAndPassword(email, password);
+    auth()
+      .signInWithEmailAndPassword(email, password)
+      .then(({ user }) => {
+        if (user) {
+          // Alert.alert("Usuario criado com sucesso!");
+        }
+      })
+      .catch((error) => {
+        console.log(error.message);
+        Alert.alert("Erro ao criar conta", JSON.stringify(error.message));
+      });
   };
 
   return (
