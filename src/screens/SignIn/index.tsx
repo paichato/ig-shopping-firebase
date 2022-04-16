@@ -39,6 +39,20 @@ export function SignIn() {
         Alert.alert("Erro ao criar conta", JSON.stringify(error.message));
       });
   };
+  const handleForgotPassword = async () => {
+    auth()
+      .sendPasswordResetEmail(email)
+      .then(() => {
+        Alert.alert(
+          "Enviamos-lhe um email",
+          `Verique a sua caixa de entrada para o email: ${email}`
+        );
+      })
+      .catch((error) => {
+        console.log(error.message);
+        Alert.alert("Erro ao resetar password", JSON.stringify(error.message));
+      });
+  };
 
   return (
     <Container>
@@ -56,7 +70,7 @@ export function SignIn() {
       <Button title="Entrar" onPress={handleSignInWithEmail} />
 
       <Account>
-        <ButtonText title="Recuperar senha" onPress={() => {}} />
+        <ButtonText title="Recuperar senha" onPress={handleForgotPassword} />
         <ButtonText
           title="Criar minha conta"
           onPress={handleCreateUserAccount}
