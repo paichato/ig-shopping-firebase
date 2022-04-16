@@ -6,6 +6,7 @@ import { Button } from "../../components/Button";
 import { Input } from "../../components/Input";
 
 import auth from "@react-native-firebase/auth";
+import { Alert } from "react-native";
 
 export function SignIn() {
   const [email, setEmail] = useState("");
@@ -16,7 +17,9 @@ export function SignIn() {
   };
 
   const handleCreateUserAccount = async () => {
-    auth().createUserWithEmailAndPassword(email, password);
+    auth()
+      .createUserWithEmailAndPassword(email, password)
+      .then(() => Alert.alert("Usuario criado com sucesso!"));
   };
 
   return (
