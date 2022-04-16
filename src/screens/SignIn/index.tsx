@@ -36,7 +36,10 @@ export function SignIn() {
 
       <Account>
         <ButtonText title="Recuperar senha" onPress={() => {}} />
-        <ButtonText title="Criar minha conta" onPress={() => {}} />
+        <ButtonText
+          title="Criar minha conta"
+          onPress={handleCreateUserAccount}
+        />
       </Account>
     </Container>
   );
