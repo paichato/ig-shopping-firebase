@@ -19,7 +19,15 @@ export function SignIn() {
   const handleCreateUserAccount = async () => {
     auth()
       .createUserWithEmailAndPassword(email, password)
-      .then(() => Alert.alert("Usuario criado com sucesso!"));
+      .then(() => Alert.alert("Usuario criado com sucesso!"))
+      .catch((error) => {
+        console.log(error.message);
+        Alert.alert("Erro ao criar conta", JSON.stringify(error.message));
+      });
+  };
+
+  const handleSignInWithEmail = async () => {
+    auth().signInWithEmailAndPassword(email, password);
   };
 
   return (
@@ -35,7 +43,7 @@ export function SignIn() {
 
       <Input placeholder="senha" secureTextEntry onChangeText={setPassword} />
 
-      <Button title="Entrar" onPress={handleSignInAnonym} />
+      <Button title="Entrar" onPress={handleSignInWithEmail} />
 
       <Account>
         <ButtonText title="Recuperar senha" onPress={() => {}} />
